@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: 020866158197.dkr.ecr.us-east-1.amazonaws.com/flask-app:latest
+        image: aniket24122000/capstone-app:latest   # DockerHub image
         ports:
         - containerPort: 5000
         resources:
@@ -34,12 +34,13 @@ spec:
               key: CAPSTONE_TEST
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
   name: flask-app-service
 spec:
-  type: LoadBalancer
+  type: NodePort    # LoadBalancer → NodePort
   selector:
     app: flask-app
   ports:
@@ -47,3 +48,4 @@ spec:
       protocol: TCP
       port: 5000
       targetPort: 5000
+      nodePort: 30036   # KillerKoda me accessible port
